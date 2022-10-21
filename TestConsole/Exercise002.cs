@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole
 {
-    public class Exercise001
+    public class Exercise002
     {
         public void Start()
         {
@@ -41,7 +41,6 @@ namespace TestConsole
             Console.WriteLine($"Result: {result.Item4} {result.Item3}");
 
             Console.ReadLine();
-
         }
     }
 }

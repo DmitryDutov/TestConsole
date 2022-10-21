@@ -1,4 +1,4 @@
 ﻿using TestConsole;
 
-Exercise001 ex = new Exercise001();
+Exercise004 ex = new Exercise004();
 ex.Start();

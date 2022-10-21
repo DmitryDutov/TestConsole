@@ -10,12 +10,26 @@ namespace TestConsole
     {
         public void Start()
         {
-            var path = @"C:\Users\ThinkPad\Downloads\olimpiada2022_task4_1_1.txt";
+            var path = @"C:\Users\ThinkPad\Downloads\olimpiada2022_task4_1_3.txt";
 
             var text = File.ReadAllText(path);
             var list = text.Split('\n');
 
-            var result = list.OrderByDescending(g=>g).ToList();
+            //var order =  list.OrderBy(x => x) .ToList() ; //сортирует по алфавиту
+
+            var groups = list
+                .GroupBy(g => g)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList()
+                ;
+
+            foreach (var group in groups)
+            {
+                var count = list.Count(x => x == group); //считаем сколько раз встречается название группы в перечне list
+                var strin = $"{count} ==> {group}";
+                Console.WriteLine(strin);
+            }
 
 
             Console.ReadLine();

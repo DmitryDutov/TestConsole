@@ -48,9 +48,8 @@ namespace TestConsole
             Console.WriteLine(num);
             num++;
 
-            var format = 
-                string.Format($"{num:00000000-0000-0000-0000-000000000000}");
-            //                  00000000-0000-0000-0000-000000000012
+            //00000000-0000-0000-0000-000000000012
+            var format = string.Format($"{num:00000000-0000-0000-0000-000000000000}");
             var nextGuid = Guid.Parse(format);
             Console.WriteLine(nextGuid);
 
@@ -58,3 +57,4 @@ namespace TestConsole
         }
     }
 }
+

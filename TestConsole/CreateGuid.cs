@@ -46,8 +46,12 @@ namespace TestConsole
             var line = Convert.ToString(guid);
             var num = Convert.ToInt64(line.Replace("-", string.Empty));
             Console.WriteLine(num);
+            num++;
 
-            var nextGuid = Guid.Parse(num++.ToString());
+            var format = 
+                string.Format($"{num:00000000-0000-0000-0000-000000000000}");
+            //                  00000000-0000-0000-0000-000000000012
+            var nextGuid = Guid.Parse(format);
             Console.WriteLine(nextGuid);
 
             Console.ReadLine();

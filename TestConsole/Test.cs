@@ -11,8 +11,7 @@ namespace TestConsole
         public async Task TextReadAsync()
         {
             var path = @"C:\Users\ThinkPad\Downloads\!License-8.sll";
-            var reader = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read));
-            var text = File.ReadAllText(path);
+            var formatter = "{0,25}{1,30}";
 
             using (FileStream fstream = File.OpenRead(path))
             {
@@ -21,11 +20,15 @@ namespace TestConsole
                 // считываем данные
                 await fstream.ReadAsync(buffer, 0, buffer.Length);
                 // декодируем байты в строку
-                string textFromFile = Encoding.Default.GetString(buffer);
-                Console.WriteLine($"Текст из файла: {textFromFile}");
+                string textFromFile = Encoding.UTF8.GetString(buffer);
+                var result = BitConverter.ToString(buffer);
+                //foreach (var item in buffer)
+                //{
+                //    Console.WriteLine(formatter, item, BitConverter.ToString(BitConverter.GetBytes(item)));
+                //}
+                Console.WriteLine(result);
             }
 
-            Console.WriteLine(reader.ReadString());
             Console.ReadLine();
         }
     }

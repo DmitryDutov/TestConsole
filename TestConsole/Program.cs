@@ -7,5 +7,6 @@
 //create.Start();
 
 Test test = new Test();
-test.TextReadAsync();
+//test.TextReadAsync();
+test.Next();
 

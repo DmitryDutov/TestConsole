@@ -44,20 +44,24 @@ namespace TestConsole
             Console.ReadLine();
         }
 
-        public void MoveFile()
+        private static async Task MoveFile(string currentDir)
         {
-            var currentDir = @"C:\Test\F-001";
+            //var currentDir = @"C:\Test\F-001";
             var targetDir = @"C:\Test\F-002\";
-            var files = Directory.GetFiles(currentDir, "*.txt");
+            var name = Path.GetFileName(currentDir);
 
-            foreach (var item in files)
-            {
-                var name = Path.GetFileName(item);
-                var targetPath = $"{targetDir}{name}";
+            targetDir = $"{targetDir}{name}";
+            //var files = Directory.GetFiles(currentDir, "*.txt");
+            File.Move(currentDir, targetDir);
 
-                Console.WriteLine(targetPath);
-                File.Move(item, targetPath);
-            }
+            //foreach (var item in files)
+            //{
+            //    var name = Path.GetFileName(item);
+            //    var targetPath = $"{targetDir}{name}";
+
+            //    Console.WriteLine(targetPath);
+            //    File.Move(item, targetPath);
+            //}
             Console.ReadLine();
         }
 
@@ -77,13 +81,15 @@ namespace TestConsole
                                  | NotifyFilters.Size;
 
             watcher.Changed += OnChanged;
-            watcher.Created += OnCreated;
-            watcher.Deleted += OnDeleted;
-            watcher.Renamed += OnRenamed;
-            watcher.Error += OnError;
+            //watcher.Created += OnCreated;
+            //watcher.Deleted += OnDeleted;
+            //watcher.Renamed += OnRenamed;
+            //watcher.Error += OnError;
 
             watcher.Filter = "*.txt";
             watcher.EnableRaisingEvents = true;
+
+            Console.ReadLine();
         }
 
         private static void OnChanged(object sender, FileSystemEventArgs e)
@@ -93,6 +99,10 @@ namespace TestConsole
                 return;
             }
             Console.WriteLine($"Changed: {e.FullPath}");
+            Task.Run(() =>
+            {
+                MoveFile(e.FullPath);
+            });
         }
 
         private static void OnCreated(object sender, FileSystemEventArgs e)

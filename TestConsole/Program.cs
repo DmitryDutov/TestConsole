@@ -8,8 +8,8 @@
 
 Test test = new Test();
 //test.TextReadAsync();
-while (true)
-{
+//while (true)
+//{
 	test.WacthFile();
-}
+//}
 

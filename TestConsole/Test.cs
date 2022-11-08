@@ -71,9 +71,9 @@ namespace TestConsole
 
             watcher.Changed += OnChanged;
             watcher.Created += OnCreated;
-            //watcher.Deleted += OnDeleted;
+            watcher.Deleted += OnDeleted;
             watcher.Renamed += OnRenamed;
-            //watcher.Error += OnError;
+            watcher.Error += OnError;
 
             watcher.Filter = "*.txt";
             watcher.EnableRaisingEvents = true;

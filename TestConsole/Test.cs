@@ -46,29 +46,18 @@ namespace TestConsole
 
         private static async Task MoveFile(string currentDir)
         {
-            //var currentDir = @"C:\Test\F-001";
             var targetDir = @"C:\Test\F-002\";
             var name = Path.GetFileName(currentDir);
 
             targetDir = $"{targetDir}{name}";
-            //var files = Directory.GetFiles(currentDir, "*.txt");
             File.Move(currentDir, targetDir);
 
-            //foreach (var item in files)
-            //{
-            //    var name = Path.GetFileName(item);
-            //    var targetPath = $"{targetDir}{name}";
-
-            //    Console.WriteLine(targetPath);
-            //    File.Move(item, targetPath);
-            //}
             Console.ReadLine();
         }
 
         public void WacthFile()
         {
             var currentDir = @"C:\Test\F-001";
-            var targetDir = @"C:\Test\F-002\";
             using var watcher = new FileSystemWatcher(currentDir);
 
             watcher.NotifyFilter = NotifyFilters.Attributes
@@ -81,9 +70,9 @@ namespace TestConsole
                                  | NotifyFilters.Size;
 
             watcher.Changed += OnChanged;
-            //watcher.Created += OnCreated;
+            watcher.Created += OnCreated;
             //watcher.Deleted += OnDeleted;
-            //watcher.Renamed += OnRenamed;
+            watcher.Renamed += OnRenamed;
             //watcher.Error += OnError;
 
             watcher.Filter = "*.txt";
@@ -109,6 +98,10 @@ namespace TestConsole
         {
             string value = $"Created: {e.FullPath}";
             Console.WriteLine(value);
+            Task.Run(() =>
+            {
+                MoveFile(e.FullPath);
+            });
         }
 
         private static void OnDeleted(object sender, FileSystemEventArgs e) =>
@@ -119,6 +112,10 @@ namespace TestConsole
             Console.WriteLine($"Renamed:");
             Console.WriteLine($"    Old: {e.OldFullPath}");
             Console.WriteLine($"    New: {e.FullPath}");
+            Task.Run(() =>
+            {
+                MoveFile(e.FullPath);
+            });
         }
 
         private static void OnError(object sender, ErrorEventArgs e) =>

@@ -7,9 +7,4 @@
 //create.Start();
 
 Test test = new Test();
-//test.TextReadAsync();
-//while (true)
-//{
-	test.WacthFile();
-//}
-
+test.TestFolder();

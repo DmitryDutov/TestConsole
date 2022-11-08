@@ -8,6 +8,23 @@ namespace TestConsole
 {
     public class Test
     {
+        public void TestFolder()
+        {
+            var dir = Directory.GetFiles(@"C:\Test\F-001");
+            if (dir.Length != 0)
+            {
+                foreach (var item in dir)
+                {
+                    Console.WriteLine(item);
+                    Task.Run(() =>
+                    {
+                        MoveFile(item);
+                    });
+                }
+            }
+
+            Console.ReadLine();
+        }
         public async Task TextReadAsync()
         {
             var path = @"C:\Users\ThinkPad\Downloads\!License-8.sll";
